@@ -33,6 +33,7 @@
     "dependencies": {
         "boxicons": "^2.1.4",
         "date-fns": "^3.3.1",
+        "nodemon": "^3.1.2",
         "rcolor": "^2.0.2"
     }
 }
