@@ -1,7 +1,9 @@
 class Node {
-    constructor(key = null, value = null) {
-        this[key] = value
-        this.next = {}
+    constructor(key = null, value = null, next = null) {
+        return {
+            [key]: value,
+            next,
+        }
     }
 }
 
@@ -18,16 +20,13 @@ class HashMap {
             hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 16
         }
 
-        // console.log(hashCode)
-
         return hashCode
     }
 
     set(key, value) {
         let keyHash = this.hash(key)
-
         let newNode = new Node(key, value)
-        console.log(newNode)
+
         // For the incoming {key: value} pair, if the hash code (or index) contains an existing value,
         // link the incoming pair to the existing pair.
         if (this.list[keyHash]) {
@@ -42,8 +41,13 @@ class HashMap {
 
         // Gets key and returns value
         if (this.list[keyHash]) {
-            // !* For linked list, check if key is correct, if not go next.
-            return this.list[keyHash]
+            let tmp = this.list[keyHash]
+
+            while (!tmp[key]) {
+                tmp = tmp.next
+            }
+
+            return tmp[key]
         } else {
             return null
         }
@@ -72,8 +76,8 @@ test.set('Pablo', 'Escobarrrrrr')
 test.set('Kevin', 'Gideon')
 test.set('Malaysia', 'Kuala Lumpur')
 
-// console.log(test.get('John'))
-// console.log(test.get('Carlos'))
-// console.log(test.get('Malaysia'))
+console.log(test.get('John'))
+console.log(test.get('Carlos'))
+console.log(test.get('Malaysia'))
 // console.log(test.get('kohn'))
 // console.log(test.list)
