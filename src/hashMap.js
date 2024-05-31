@@ -64,7 +64,38 @@ class HashMap {
         }
     }
 
-    remove(key) {}
+    remove(key) {
+        let tmp = this.list
+        let keyHash = this.hash(key)
+
+        if (this.has(key)) {
+            if (tmp[keyHash].next === null) {
+                return delete tmp[keyHash]
+            } else {
+                // !* Maybe need to incorporate one of the linked-list-class methods.
+                tmp = tmp[keyHash]
+
+                if (tmp[key]) {
+                    // console.log(tmp)
+                    this.list[keyHash] = tmp.next
+                    // console.log(tmp)
+                } else {
+                    let prev = tmp
+                    while (!tmp[key]) {
+                        prev = tmp
+                        tmp = tmp.next
+                    }
+
+                    prev.next = null
+                }
+
+                console.log(this.list)
+                return true
+            }
+        } else {
+            return false
+        }
+    }
 
     length() {}
 
@@ -92,3 +123,7 @@ test.set('Malaysia', 'Kuala Lumpur')
 // console.log(test.list)
 
 // console.log(test.has('pablo'))
+console.log(test.remove('Carlos'))
+test.remove('John')
+test.remove('Malaysia')
+// console.log(test.list)
