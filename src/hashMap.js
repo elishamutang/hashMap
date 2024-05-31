@@ -1,3 +1,5 @@
+import linkedList from 'linked-list-class'
+
 class HashMap {
     constructor() {
         this.list = new Array(16)
@@ -34,7 +36,7 @@ class HashMap {
         // Gets key and returns value
         if (this.list[keyHash]) {
             // !* For linked list, check if key is correct, if not go next.
-            return this.list[keyHash][key]
+            return this.list[keyHash]
         } else {
             return null
         }
