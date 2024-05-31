@@ -53,7 +53,16 @@ class HashMap {
         }
     }
 
-    has(key) {}
+    has(key) {
+        let tmp = this.list
+        let keyHash = this.hash(key)
+
+        if (tmp[keyHash]) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     remove(key) {}
 
@@ -76,8 +85,10 @@ test.set('Pablo', 'Escobarrrrrr')
 test.set('Kevin', 'Gideon')
 test.set('Malaysia', 'Kuala Lumpur')
 
-console.log(test.get('John'))
-console.log(test.get('Carlos'))
-console.log(test.get('Malaysia'))
+// console.log(test.get('John'))
+// console.log(test.get('Carlos'))
+// console.log(test.get('Malaysia'))
 // console.log(test.get('kohn'))
 // console.log(test.list)
+
+// console.log(test.has('pablo'))
