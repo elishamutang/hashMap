@@ -1,4 +1,9 @@
-import linkedList from 'linked-list-class'
+class Node {
+    constructor(key = null, value = null) {
+        this[key] = value
+        this.next = {}
+    }
+}
 
 class HashMap {
     constructor() {
@@ -21,12 +26,14 @@ class HashMap {
     set(key, value) {
         let keyHash = this.hash(key)
 
+        let newNode = new Node(key, value)
+        console.log(newNode)
         // For the incoming {key: value} pair, if the hash code (or index) contains an existing value,
         // link the incoming pair to the existing pair.
         if (this.list[keyHash]) {
-            this.list[keyHash].next = { [key]: value }
+            this.list[keyHash].next = newNode
         } else {
-            this.list[keyHash] = { [key]: value }
+            this.list[keyHash] = newNode
         }
     }
 
@@ -65,8 +72,8 @@ test.set('Pablo', 'Escobarrrrrr')
 test.set('Kevin', 'Gideon')
 test.set('Malaysia', 'Kuala Lumpur')
 
-console.log(test.get('John'))
-console.log(test.get('Carlos'))
-console.log(test.get('Malaysia'))
+// console.log(test.get('John'))
+// console.log(test.get('Carlos'))
+// console.log(test.get('Malaysia'))
 // console.log(test.get('kohn'))
 // console.log(test.list)
