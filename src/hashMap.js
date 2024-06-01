@@ -69,28 +69,27 @@ class HashMap {
         let keyHash = this.hash(key)
 
         if (this.has(key)) {
-            if (tmp[keyHash].next === null) {
+            // If node exists at the head, remove node. Else, traverse through linked list until a key match is found
+            // and then keep track of previous node to set the next property to null.
+            if (tmp[keyHash][key] && tmp[keyHash].next === null) {
                 return delete tmp[keyHash]
             } else {
-                // !* Maybe need to incorporate one of the linked-list-class methods.
-                tmp = tmp[keyHash]
-
-                if (tmp[key]) {
-                    // console.log(tmp)
-                    this.list[keyHash] = tmp.next
-                    // console.log(tmp)
+                if (tmp[keyHash][key]) {
+                    tmp[keyHash] = tmp[keyHash].next
                 } else {
-                    let prev = tmp
-                    while (!tmp[key]) {
-                        prev = tmp
-                        tmp = tmp.next
+                    let node = tmp[keyHash]
+                    let prev
+
+                    while (!node[key]) {
+                        // Keep track of previous node
+                        prev = node
+                        node = node.next
                     }
 
+                    // Delete target node
                     prev.next = null
+                    return true
                 }
-
-                console.log(this.list)
-                return true
             }
         } else {
             return false
@@ -123,7 +122,7 @@ test.set('Malaysia', 'Kuala Lumpur')
 // console.log(test.list)
 
 // console.log(test.has('pablo'))
-console.log(test.remove('Carlos'))
-test.remove('John')
-test.remove('Malaysia')
-// console.log(test.list)
+// console.log(test.remove('Carlos'))
+// test.remove('John')
+// test.remove('Malaysia')
+console.log(test.list)
