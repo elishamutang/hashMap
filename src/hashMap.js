@@ -96,7 +96,22 @@ class HashMap {
         }
     }
 
-    length() {}
+    length() {
+        let tmp = this.list
+
+        let counter = 0
+
+        for (let node of tmp) {
+            if (node) {
+                counter++
+                while (node.next !== null) {
+                    counter++
+                    node = node.next
+                }
+            }
+        }
+        return counter
+    }
 
     clear() {}
 
@@ -114,6 +129,11 @@ test.set('John', "You can't see me!")
 test.set('Pablo', 'Escobarrrrrr')
 test.set('Kevin', 'Gideon')
 test.set('Malaysia', 'Kuala Lumpur')
+test.set('Sarawak', 'Kuching')
+test.set('T4', 'Boba')
+test.set('Bobaboba', 'Bubble tea shop')
+test.set('Badminton', 'Leisurelife Centre')
+test.set('Wong', 'Ho Yi')
 
 // console.log(test.get('John'))
 // console.log(test.get('Carlos'))
@@ -125,4 +145,6 @@ test.set('Malaysia', 'Kuala Lumpur')
 // console.log(test.remove('Carlos'))
 // test.remove('John')
 // test.remove('Malaysia')
-console.log(test.list)
+// console.log(test.list)
+
+console.log(test.length())
