@@ -10,14 +10,17 @@ class Node {
 class HashMap {
     constructor() {
         this.list = new Array(16)
+        this.loadFactor = 0.75
+        this.capacity = 0
     }
 
     hash(key) {
         let hashCode = 0
+        let listSize = this.list.length
 
         const primeNumber = 31
         for (let i = 0; i < key.length; i++) {
-            hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 16
+            hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % listSize
         }
 
         return hashCode
@@ -30,10 +33,32 @@ class HashMap {
         // For the incoming {key: value} pair, if the hash code (or index) contains an existing value,
         // link the incoming pair to the existing pair.
         if (this.list[keyHash]) {
-            this.list[keyHash].next = newNode
+            let tmp = this.list[keyHash]
+
+            while (tmp.next !== null) {
+                tmp = tmp.next
+            }
+
+            tmp.next = newNode
         } else {
             this.list[keyHash] = newNode
         }
+
+        // Keep track of hash map capacity.
+        this.capacity = this.length() / this.list.length
+
+        // If capacity exceeds load factor, create a new list double the size of existing list and then
+        // copy over all keys from old list into new list.
+        // Hashing function is updated to reflect new size of hash map.
+        // if (this.capacity > this.loadFactor) {
+        //     let newList = new Array(this.list.length * 2)
+
+        //     for (let idx in this.list) {
+        //         console.log(this.list[idx])
+        //     }
+
+        //     this.list = newList
+        // }
     }
 
     get(key) {
@@ -54,13 +79,22 @@ class HashMap {
     }
 
     has(key) {
-        let tmp = this.list
         let keyHash = this.hash(key)
+        let tmp = this.list[keyHash]
 
-        if (tmp[keyHash]) {
+        // If key is present at head, return true. Else, traverse through node and find key.
+        if (tmp[key]) {
             return true
         } else {
-            return false
+            if (tmp.next === null) {
+                return false
+            } else {
+                while (tmp.next !== null) {
+                    tmp = tmp.next
+                }
+
+                if (tmp[key]) return true
+            }
         }
     }
 
@@ -110,6 +144,7 @@ class HashMap {
                 }
             }
         }
+
         return counter
     }
 
@@ -123,6 +158,7 @@ class HashMap {
 }
 
 const test = new HashMap()
+// console.log(test.hash('Carlos'))
 test.set('Carlos', 'car is lost')
 test.set('Carla', 'car is la')
 test.set('John', "You can't see me!")
@@ -134,6 +170,15 @@ test.set('T4', 'Boba')
 test.set('Bobaboba', 'Bubble tea shop')
 test.set('Badminton', 'Leisurelife Centre')
 test.set('Wong', 'Ho Yi')
+// test.set('apple', 'pineapple')
+// test.set('dog', 'cat')
+// test.set('elephant', 'rhino')
+// test.set('boba', 'fett')
+// test.set('bruh', 'come on')
+// test.set('naur', 'yes')
+// test.set('aaron', 'soh')
+// test.set('MAS', 'INA')
+// test.set('software', 'inginiur')
 
 // console.log(test.get('John'))
 // console.log(test.get('Carlos'))
@@ -141,10 +186,16 @@ test.set('Wong', 'Ho Yi')
 // console.log(test.get('kohn'))
 // console.log(test.list)
 
-// console.log(test.has('pablo'))
+// console.log(test.has('Carla'))
+// console.log(test.has('Carlos'))
+// console.log(test.has('Wong'))
+// console.log(test.has('korn'))
+// console.log(test.has('Sarawak'))
+// console.log(test.has('Malaysia'))
 // console.log(test.remove('Carlos'))
 // test.remove('John')
 // test.remove('Malaysia')
+// console.log(test.hash('Carlos'))
 // console.log(test.list)
-
-console.log(test.length())
+// console.log(test.length())
+// console.log(test.capacity)
