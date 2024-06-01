@@ -53,8 +53,8 @@ class HashMap {
         // if (this.capacity > this.loadFactor) {
         //     let newList = new Array(this.list.length * 2)
 
-        //     for (let idx in this.list) {
-        //         console.log(this.list[idx])
+        //     for (let oldKey in this.list) {
+        //         newList[oldKey] = this.list[oldKey]
         //     }
 
         //     this.list = newList
@@ -95,6 +95,8 @@ class HashMap {
 
                 if (tmp[key]) return true
             }
+
+            return false
         }
     }
 
@@ -128,6 +130,8 @@ class HashMap {
         } else {
             return false
         }
+
+        this.capacity = this.length() / this.list.length
     }
 
     length() {
@@ -148,9 +152,17 @@ class HashMap {
         return counter
     }
 
-    clear() {}
+    clear() {
+        this.list = new Array(16)
+    }
 
-    keys() {}
+    keys() {
+        let tmp = this.list
+
+        for (let node of tmp) {
+            console.log(node)
+        }
+    }
 
     values() {}
 
@@ -170,7 +182,7 @@ test.set('T4', 'Boba')
 test.set('Bobaboba', 'Bubble tea shop')
 test.set('Badminton', 'Leisurelife Centre')
 test.set('Wong', 'Ho Yi')
-// test.set('apple', 'pineapple')
+test.set('apple', 'pineapple')
 // test.set('dog', 'cat')
 // test.set('elephant', 'rhino')
 // test.set('boba', 'fett')
@@ -192,10 +204,18 @@ test.set('Wong', 'Ho Yi')
 // console.log(test.has('korn'))
 // console.log(test.has('Sarawak'))
 // console.log(test.has('Malaysia'))
+// console.log(test.has('pop'))
+// console.log(test.has('electricalyl'))
 // console.log(test.remove('Carlos'))
 // test.remove('John')
+// test.remove('Wong')
+// test.remove('Pablo')
 // test.remove('Malaysia')
 // console.log(test.hash('Carlos'))
 // console.log(test.list)
 // console.log(test.length())
 // console.log(test.capacity)
+
+// test.clear()
+// console.log(test.list)
+console.log(test.keys())
