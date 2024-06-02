@@ -162,24 +162,14 @@ class HashMap {
 
         // Helper function
         const getKey = (node) => {
-            if (node.next === null) {
-                const [nodeKey] = Object.keys(node).filter((key) => {
-                    return key !== 'next'
-                })
+            const [nodeKey] = Object.keys(node).filter((key) => {
+                return key !== 'next'
+            })
 
-                allKeys.push(nodeKey)
-            } else {
-                while (node.next !== null) {
-                    const [nodeKey] = Object.keys(node).filter((key) => {
-                        return key !== 'next'
-                    })
+            allKeys.push(nodeKey)
 
-                    allKeys.push(nodeKey)
-
-                    node = node.next
-                }
-
-                getKey(node)
+            if (node.next !== null) {
+                getKey(node.next)
             }
         }
 
@@ -193,7 +183,28 @@ class HashMap {
         return allKeys
     }
 
-    values() {}
+    values() {
+        let tmp = this.list
+        let allValues = []
+
+        const getValue = (node) => {
+            const [nodeValue] = Object.values(node).filter((value) => {
+                return value !== null
+            })
+
+            allValues.push(nodeValue)
+
+            if (node.next !== null) {
+                getValue(node.next)
+            }
+        }
+
+        for (let node of tmp) {
+            if (node) getValue(node)
+        }
+
+        return allValues
+    }
 
     entries() {}
 }
@@ -248,3 +259,4 @@ test.set('apple', 'pineapple')
 // test.clear()
 // console.log(test.list)
 console.log(test.keys())
+console.log(test.values())
