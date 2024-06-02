@@ -158,10 +158,39 @@ class HashMap {
 
     keys() {
         let tmp = this.list
+        let allKeys = []
 
-        for (let node of tmp) {
-            console.log(node)
+        // Helper function
+        const getKey = (node) => {
+            if (node.next === null) {
+                const [nodeKey] = Object.keys(node).filter((key) => {
+                    return key !== 'next'
+                })
+
+                allKeys.push(nodeKey)
+            } else {
+                while (node.next !== null) {
+                    const [nodeKey] = Object.keys(node).filter((key) => {
+                        return key !== 'next'
+                    })
+
+                    allKeys.push(nodeKey)
+
+                    node = node.next
+                }
+
+                getKey(node)
+            }
         }
+
+        // Loop through each node in bucket.
+        for (let node of tmp) {
+            if (node) {
+                getKey(node)
+            }
+        }
+
+        return allKeys
     }
 
     values() {}
