@@ -1,3 +1,5 @@
+import { getKey, getValue, getEntry } from './helperFunc.js'
+
 class Node {
     constructor(key = null, value = null, next = null) {
         return {
@@ -50,15 +52,24 @@ class HashMap {
         // If capacity exceeds load factor, create a new list double the size of existing list and then
         // copy over all keys from old list into new list.
         // Hashing function is updated to reflect new size of hash map.
-        // if (this.capacity > this.loadFactor) {
-        //     let newList = new Array(this.list.length * 2)
+        if (this.capacity > this.loadFactor) {
+            let newList = new Array(this.list.length * 2)
 
-        //     for (let oldKey in this.list) {
-        //         newList[oldKey] = this.list[oldKey]
-        //     }
+            let oldList = this.list
+            this.list = newList
 
-        //     this.list = newList
-        // }
+            let allEntries = []
+
+            for (let node of oldList) {
+                if (node) {
+                    getEntry(node, allEntries)
+                }
+            }
+
+            allEntries.forEach((entry) => {
+                this.set(entry[0], entry[1])
+            })
+        }
     }
 
     get(key) {
@@ -160,23 +171,10 @@ class HashMap {
         let tmp = this.list
         let allKeys = []
 
-        // Helper function
-        const getKey = (node) => {
-            const [nodeKey] = Object.keys(node).filter((key) => {
-                return key !== 'next'
-            })
-
-            allKeys.push(nodeKey)
-
-            if (node.next !== null) {
-                getKey(node.next)
-            }
-        }
-
         // Loop through each node in bucket.
         for (let node of tmp) {
             if (node) {
-                getKey(node)
+                getKey(node, allKeys)
             }
         }
 
@@ -187,20 +185,10 @@ class HashMap {
         let tmp = this.list
         let allValues = []
 
-        const getValue = (node) => {
-            const [nodeValue] = Object.values(node).filter((value) => {
-                return value !== null
-            })
-
-            allValues.push(nodeValue)
-
-            if (node.next !== null) {
-                getValue(node.next)
-            }
-        }
-
         for (let node of tmp) {
-            if (node) getValue(node)
+            if (node) {
+                getValue(node, allValues)
+            }
         }
 
         return allValues
@@ -210,23 +198,9 @@ class HashMap {
         let tmp = this.list
         let allEntries = []
 
-        const getEntry = (node) => {
-            const [entry] = Object.entries(node).filter(([key, value]) => {
-                if (key !== 'next') {
-                    return [key, value]
-                }
-            })
-
-            allEntries.push(entry)
-
-            if (node.next !== null) {
-                getEntry(node.next)
-            }
-        }
-
         for (let node of tmp) {
             if (node) {
-                getEntry(node)
+                getEntry(node, allEntries)
             }
         }
 
@@ -235,7 +209,7 @@ class HashMap {
 }
 
 const test = new HashMap()
-// console.log(test.hash('Carlos'))
+
 test.set('Carlos', 'car is lost')
 test.set('Carla', 'car is la')
 test.set('John', "You can't see me!")
@@ -248,19 +222,15 @@ test.set('Bobaboba', 'Bubble tea shop')
 test.set('Badminton', 'Leisurelife Centre')
 test.set('Wong', 'Ho Yi')
 test.set('apple', 'pineapple')
-// test.set('dog', 'cat')
-// test.set('elephant', 'rhino')
-// test.set('boba', 'fett')
-// test.set('bruh', 'come on')
-// test.set('naur', 'yes')
+test.set('dog', 'cat')
+test.set('elephant', 'rhino')
+test.set('boba', 'fett')
+test.set('bruh', 'come on')
+test.set('naur', 'yes')
 // test.set('aaron', 'soh')
 // test.set('MAS', 'INA')
 // test.set('software', 'inginiur')
 
-// console.log(test.get('John'))
-// console.log(test.get('Carlos'))
-// console.log(test.get('Malaysia'))
-// console.log(test.get('kohn'))
 // console.log(test.list)
 
 // console.log(test.has('Carla'))
@@ -282,7 +252,18 @@ test.set('apple', 'pineapple')
 // console.log(test.capacity)
 
 // test.clear()
-// console.log(test.list)
+console.log(test.list)
+console.log(test.capacity)
+console.log(test.length())
 // console.log(test.keys())
 // console.log(test.values())
-console.log(test.entries())
+// console.log(test.entries())
+
+// console.log(test.get('John'))
+// console.log(test.get('Carlos'))
+// console.log(test.get('Malaysia'))
+// console.log(test.get('kohn'))
+// console.log(test.get('boba'))
+// test.set('T4', 'not boba')
+// console.log(test.get('T4'))
+// console.log(test.keys())
