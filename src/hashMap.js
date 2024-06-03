@@ -37,11 +37,19 @@ class HashMap {
         if (this.list[keyHash]) {
             let tmp = this.list[keyHash]
 
-            while (tmp.next !== null) {
-                tmp = tmp.next
-            }
+            // Check if key that was passed, already exists in list. If true, overwrite the value of that key.
+            // Else, traverse through the linked list and insert as next node.
 
-            tmp.next = newNode
+            //!* FIX THIS - currently not able to overwrite nested nodes
+            if (tmp[key]) {
+                tmp[key] = value
+            } else {
+                while (tmp.next !== null) {
+                    tmp = tmp.next
+                }
+
+                tmp.next = newNode
+            }
         } else {
             this.list[keyHash] = newNode
         }
@@ -216,17 +224,18 @@ test.set('John', "You can't see me!")
 test.set('Pablo', 'Escobarrrrrr')
 test.set('Kevin', 'Gideon')
 test.set('Malaysia', 'Kuala Lumpur')
-test.set('Sarawak', 'Kuching')
-test.set('T4', 'Boba')
-test.set('Bobaboba', 'Bubble tea shop')
-test.set('Badminton', 'Leisurelife Centre')
-test.set('Wong', 'Ho Yi')
-test.set('apple', 'pineapple')
-test.set('dog', 'cat')
-test.set('elephant', 'rhino')
-test.set('boba', 'fett')
-test.set('bruh', 'come on')
-test.set('naur', 'yes')
+test.set('Malaysia', 'MY bruh')
+// test.set('Sarawak', 'Kuching')
+// test.set('T4', 'Boba')
+// test.set('Bobaboba', 'Bubble tea shop')
+// test.set('Badminton', 'Leisurelife Centre')
+// test.set('Wong', 'Ho Yi')
+// test.set('apple', 'pineapple')
+// test.set('dog', 'cat')
+// test.set('elephant', 'rhino')
+// test.set('boba', 'fett')
+// test.set('bruh', 'come on')
+// test.set('naur', 'yes')
 // test.set('aaron', 'soh')
 // test.set('MAS', 'INA')
 // test.set('software', 'inginiur')
