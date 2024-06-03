@@ -206,7 +206,32 @@ class HashMap {
         return allValues
     }
 
-    entries() {}
+    entries() {
+        let tmp = this.list
+        let allEntries = []
+
+        const getEntry = (node) => {
+            const [entry] = Object.entries(node).filter(([key, value]) => {
+                if (key !== 'next') {
+                    return [key, value]
+                }
+            })
+
+            allEntries.push(entry)
+
+            if (node.next !== null) {
+                getEntry(node.next)
+            }
+        }
+
+        for (let node of tmp) {
+            if (node) {
+                getEntry(node)
+            }
+        }
+
+        return allEntries
+    }
 }
 
 const test = new HashMap()
@@ -258,5 +283,6 @@ test.set('apple', 'pineapple')
 
 // test.clear()
 // console.log(test.list)
-console.log(test.keys())
-console.log(test.values())
+// console.log(test.keys())
+// console.log(test.values())
+console.log(test.entries())
