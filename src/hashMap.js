@@ -33,22 +33,24 @@ class HashMap {
         let newNode = new Node(key, value)
 
         // For the incoming {key: value} pair, if the hash code (or index) contains an existing value,
-        // link the incoming pair to the existing pair.
+        // check if passed key exists, else insert at index (keyHash).
         if (this.list[keyHash]) {
             let tmp = this.list[keyHash]
 
             // Check if key that was passed, already exists in list. If true, overwrite the value of that key.
             // Else, traverse through the linked list and insert as next node.
-
-            //!* FIX THIS - currently not able to overwrite nested nodes
             if (tmp[key]) {
                 tmp[key] = value
             } else {
-                while (tmp.next !== null) {
+                while (tmp.next !== null && !tmp[key]) {
                     tmp = tmp.next
                 }
 
-                tmp.next = newNode
+                if (tmp[key]) {
+                    tmp[key] = value
+                } else {
+                    tmp.next = newNode
+                }
             }
         } else {
             this.list[keyHash] = newNode
@@ -225,15 +227,19 @@ test.set('Pablo', 'Escobarrrrrr')
 test.set('Kevin', 'Gideon')
 test.set('Malaysia', 'Kuala Lumpur')
 test.set('Malaysia', 'MY bruh')
-// test.set('Sarawak', 'Kuching')
-// test.set('T4', 'Boba')
-// test.set('Bobaboba', 'Bubble tea shop')
-// test.set('Badminton', 'Leisurelife Centre')
-// test.set('Wong', 'Ho Yi')
-// test.set('apple', 'pineapple')
-// test.set('dog', 'cat')
-// test.set('elephant', 'rhino')
-// test.set('boba', 'fett')
+test.set('Malaysia', 'kualalalalal')
+test.set('Sarawak', 'Kuching')
+test.set('Sarawak', 'Laksa')
+test.set('T4', 'Boba')
+test.set('Bobaboba', 'Bubble tea shop')
+test.set('Badminton', 'Leisurelife Centre')
+test.set('Wong', 'Ho Yi')
+test.set('apple', 'pineapple')
+test.set('dog', 'cat')
+test.set('dog', 'german')
+test.set('elephant', 'rhino')
+test.set('boba', 'fett')
+test.set('boba', 'not fett')
 // test.set('bruh', 'come on')
 // test.set('naur', 'yes')
 // test.set('aaron', 'soh')
@@ -273,6 +279,6 @@ console.log(test.length())
 // console.log(test.get('Malaysia'))
 // console.log(test.get('kohn'))
 // console.log(test.get('boba'))
+// console.log(test.get('dog'))
 // test.set('T4', 'not boba')
 // console.log(test.get('T4'))
-// console.log(test.keys())
