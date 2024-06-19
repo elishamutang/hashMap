@@ -26,3 +26,8 @@ Run the following:
 1. Fork and/or clone repo.
 2. Run `npm install` to install all dependencies.
 3. Run `nodemon ./src/hashMap.js` to run code using Node which will output in your editor's terminal.
+
+# References
+
+1. [The Odin Project](https://www.theodinproject.com/lessons/javascript-hashmap)
+2. [JavaScript Hashmap: A Complete Guide](https://www.squash.io/javascript-hashmap-a-complete-guide/)
