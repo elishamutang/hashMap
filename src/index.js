@@ -17,10 +17,14 @@ test.set('kite', 'pink')
 test.set('lion', 'golden')
 test.set('moon', 'silver')
 
+// Hash map capacity at is at full capacity now (0.75), running the below will test whether it will overwrite the hash map correctly.
+// test.set('lion', 'roar')
+// test.set('hat', 'red')
+
 // Test 1: Replace value for an existing key
-test.set('moon', 'bright')
-test.set('ice cream', 'melting')
-test.set('lion', 'roar')
+// test.set('moon', 'bright')
+// test.set('ice cream', 'melting')
+// test.set('lion', 'roar')
 
 // Test 2: Has method
 // console.log(test.has('moon'))
