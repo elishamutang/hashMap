@@ -9,7 +9,7 @@ class Node {
     }
 }
 
-class HashMap {
+export default class HashMap {
     constructor() {
         this.list = new Array(16)
         this.loadFactor = 0.75
@@ -129,7 +129,11 @@ class HashMap {
             // If node exists at the head, remove node. Else, traverse through linked list until a key match is found
             // and then keep track of previous node to set the next property to null.
             if (tmp[keyHash][key] && tmp[keyHash].next === null) {
-                return delete tmp[keyHash]
+                delete tmp[keyHash]
+
+                this.capacity = this.length() / this.list.length
+
+                return true
             } else {
                 if (tmp[keyHash][key]) {
                     tmp[keyHash] = tmp[keyHash].next
@@ -145,14 +149,13 @@ class HashMap {
 
                     // Delete target node
                     prev.next = null
+                    this.capacity = this.length() / this.list.length
                     return true
                 }
             }
         } else {
             return false
         }
-
-        this.capacity = this.length() / this.list.length
     }
 
     length() {
@@ -217,68 +220,3 @@ class HashMap {
         return allEntries
     }
 }
-
-const test = new HashMap()
-
-test.set('Carlos', 'car is lost')
-test.set('Carla', 'car is la')
-test.set('John', "You can't see me!")
-test.set('Pablo', 'Escobarrrrrr')
-test.set('Kevin', 'Gideon')
-test.set('Malaysia', 'Kuala Lumpur')
-test.set('Malaysia', 'MY bruh')
-test.set('Malaysia', 'kualalalalal')
-test.set('Sarawak', 'Kuching')
-test.set('Sarawak', 'Laksa')
-test.set('T4', 'Boba')
-test.set('Bobaboba', 'Bubble tea shop')
-test.set('Badminton', 'Leisurelife Centre')
-test.set('Wong', 'Ho Yi')
-test.set('apple', 'pineapple')
-test.set('dog', 'cat')
-test.set('dog', 'german')
-test.set('elephant', 'rhino')
-test.set('boba', 'fett')
-test.set('boba', 'not fett')
-// test.set('bruh', 'come on')
-// test.set('naur', 'yes')
-// test.set('aaron', 'soh')
-// test.set('MAS', 'INA')
-// test.set('software', 'inginiur')
-
-// console.log(test.list)
-
-// console.log(test.has('Carla'))
-// console.log(test.has('Carlos'))
-// console.log(test.has('Wong'))
-// console.log(test.has('korn'))
-// console.log(test.has('Sarawak'))
-// console.log(test.has('Malaysia'))
-// console.log(test.has('pop'))
-// console.log(test.has('electricalyl'))
-// console.log(test.remove('Carlos'))
-// test.remove('John')
-// test.remove('Wong')
-// test.remove('Pablo')
-// test.remove('Malaysia')
-// console.log(test.hash('Carlos'))
-// console.log(test.list)
-// console.log(test.length())
-// console.log(test.capacity)
-
-// test.clear()
-console.log(test.list)
-console.log(test.capacity)
-console.log(test.length())
-// console.log(test.keys())
-// console.log(test.values())
-// console.log(test.entries())
-
-// console.log(test.get('John'))
-// console.log(test.get('Carlos'))
-// console.log(test.get('Malaysia'))
-// console.log(test.get('kohn'))
-// console.log(test.get('boba'))
-// console.log(test.get('dog'))
-// test.set('T4', 'not boba')
-// console.log(test.get('T4'))
