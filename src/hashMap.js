@@ -178,6 +178,7 @@ export default class HashMap {
 
     clear() {
         this.list = new Array(16)
+        this.capacity = 0
     }
 
     keys() {
