@@ -104,19 +104,21 @@ export default class HashMap {
         let tmp = this.list[keyHash]
 
         // If key is present at head, return true. Else, traverse through node and find key.
-        if (tmp[key]) {
-            return true
-        } else {
-            if (tmp.next === null) {
-                return false
+        try {
+            if (tmp[key]) {
+                return true
             } else {
-                while (tmp.next !== null) {
-                    tmp = tmp.next
+                if (tmp.next === null) {
+                    return false
+                } else {
+                    while (tmp.next !== null) {
+                        tmp = tmp.next
+                    }
+
+                    if (tmp[key]) return true
                 }
-
-                if (tmp[key]) return true
             }
-
+        } catch {
             return false
         }
     }
